@@ -1,0 +1,15 @@
+How to enable Kraft mode (zookeeperless) ? 
+
+ 1. Enable the feature gates: 
+  >>> kubectl set env deployments/strimzi-cluster-operator STRIMZI_FEATURE_GATES=+UseKRaft,+KafkaNodePools -n kafka-dev
+  
+ 2. in the cluster setup yaml file, add the annotations, example : 
+  >>> grep annotations kafka-with-kraft.yaml -A 2 -B 4
+   
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: my-cluster
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
